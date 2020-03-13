@@ -1,7 +1,7 @@
 import { Film } from "../business/entities/films";
 import { BaseDB } from "./baseDataBase";
 
-export class F4FlixDB extends BaseDB{
+export class F4FlixFilmsDB extends BaseDB{
     private filmTableName = "f4flix_films";
 
     private mapDateToDbDate(input: Date): string {
@@ -13,6 +13,21 @@ export class F4FlixDB extends BaseDB{
 
     private mapDbDateToDate(input: string): Date {
         return new Date(input);
+      }
+    
+    private mapDbFilmToFilm(input?: any): Film | undefined {
+        return (
+            input &&
+            new Film(
+                input.id,
+                input.title,
+                this.mapDbDateToDate(input.date),
+                input.length,
+                input.synopsis,
+                input.link,
+                input.picture
+            )
+        );
     }
 
     public async createFilm(film: Film): Promise<void> {
@@ -26,7 +41,21 @@ export class F4FlixDB extends BaseDB{
                 '${film.getSynopsis()}',
                 '${film.getLink()}',
                 '${film.getPicture()}'
-            );`
+            )`
         );
+    }
+
+    public async getFilmById(id: string): Promise< Film | undefined>{
+        const result = await this.connection.raw(`
+            SELECT * 
+            FROM ${this.filmTableName} f
+            WHERE f.id='${id}'`
+        );
+
+        if (!result[0][0]) {
+            return undefined;
+        }
+
+        return this.mapDbFilmToFilm(result[0][0]);
     }
 }

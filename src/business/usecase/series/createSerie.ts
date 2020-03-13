@@ -1,13 +1,13 @@
 import { v4 } from "uuid";
-import { F4FlixFilmsDB } from "../../../data/f4flixFilmsDataBase";
-import { Film } from "../../entities/films";
+import { F4FlixSeriesDB } from "../../../data/f4flixSeriesDataBase";
+import { Series } from "../../entities/series";
 
-export class CreateFilmUC {
+export class CreateSerieUC {
     constructor(
-        private f4FlixFilmsDB: F4FlixFilmsDB
+        private F4FlixSeriesDB: F4FlixSeriesDB
     ){}
 
-    public async execute(input: createFilmUCInput): Promise<createFilmUCOutput>{
+    public async execute(input: createSerieUCInput): Promise<createSerieUCOutput>{
         const id = v4();
 
         const date = new Date(input.date + " 00:00")
@@ -16,34 +16,32 @@ export class CreateFilmUC {
             throw new Error("Invalid date");
         }
 
-        const film = new Film(
+        const serie = new Series(
             id, 
             input.title, 
             date, 
-            input.length, 
             input.synopsis, 
             input.link, 
             input.picture
         )
 
-        await this.f4FlixFilmsDB.createFilm(film)
+        await this.F4FlixSeriesDB.createSerie(serie)
 
         return {
-            message: "Movie created successfully"
+            message: "Serie created successfully"
         };
     }
 
 }
 
-export interface createFilmUCInput{
+export interface createSerieUCInput{
     title: string;
     date: string;
-    length: number;
     synopsis: string;
     link: string;
     picture: string;
 }
 
-export interface createFilmUCOutput{
+export interface createSerieUCOutput{
     message: string
 }
