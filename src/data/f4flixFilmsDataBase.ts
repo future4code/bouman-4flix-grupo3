@@ -13,7 +13,7 @@ export class F4FlixFilmsDB extends BaseDB{
 
     private mapDbDateToDate(input: string): Date {
         return new Date(input);
-      }
+    }
     
     private mapDbFilmToFilm(input?: any): Film | undefined {
         return (

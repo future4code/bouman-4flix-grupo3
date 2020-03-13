@@ -23,7 +23,7 @@ export class F4FlixEpisodesDB extends BaseDB{
     }
 
     
-    public async getEpisodeById(id: string): Promise< EpisodesWithSeries | undefined>{
+    public async getEpisodeById(id: string): Promise<EpisodesWithSeries | undefined>{
         const result = await this.connection.raw(`
             SELECT * 
             FROM ${this.serieTableName} s

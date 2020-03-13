@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { GetEpisodeByIdUC } from "../../../business/usecase/episodes/getEpisodeById";
 import { F4FlixEpisodesDB } from "../../../data/f4flixEpisodesDataBase";
 
-
 export const getEpisodeByIdEndpoint = async (req: Request, res: Response) => {
   try {
     const getEpisodeByIdUC = new GetEpisodeByIdUC(new F4FlixEpisodesDB());

@@ -10,7 +10,7 @@ export class GetEpisodeByIdUC {
         const episode = await this.DB.getEpisodeById(input.id)
 
         if(!episode) {
-        throw new Error("episode not found")
+        throw new Error("Episode not found")
         }
 
         return {
@@ -21,7 +21,7 @@ export class GetEpisodeByIdUC {
             picture: episode.getPicture(),
             synopsis: episode.getSynopsis(),
             serieName: episode.getSerie().getTitle(),
-            serieId: episode.getSeriesId()
+            serieId: episode.getSeriesId(),
             
         }
     }
