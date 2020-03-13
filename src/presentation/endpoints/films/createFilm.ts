@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { F4FlixDB } from "../../data/f4flixDataBase";
-import { CreateFilmUC } from "../../business/usecase/films/createFilm";
+import { F4FlixFilmsDB } from "../../../data/f4flixFilmsDataBase";
+import { CreateFilmUC } from "../../../business/usecase/films/createFilm";
 
 
 export const createFilmEndpoint = async (req: Request, res: Response) => {
   try {
-    const createFilmUC = new CreateFilmUC(new F4FlixDB());
+    const createFilmUC = new CreateFilmUC(new F4FlixFilmsDB());
     const result = await createFilmUC.execute({
       title: req.body.title,
       date: req.body.date,

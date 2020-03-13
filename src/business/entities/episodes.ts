@@ -1,3 +1,5 @@
+import { Series } from "./series";
+
 export class Episodes{
     constructor(
         private id: string,
@@ -14,7 +16,7 @@ export class Episodes{
     }
     
     public setId(id: string): void {
-    this.id = id;
+        this.id = id;
     }
 
     public getTitle(): string {
@@ -63,5 +65,27 @@ export class Episodes{
     
     public setSeriesId(seriesId: string): void {
     this.series_id = seriesId;
+    }
+}
+
+export class EpisodesWithSeries extends Episodes {
+    constructor(
+        id: string,
+        title: string,
+        length: number,
+        link: string,
+        picture: string,
+        synopsis:string,
+        private serie: Series
+    ){
+        super(id, title, length, link, picture, synopsis, serie.getId());
+    }
+
+    public setSerie(series: Series): void {
+        this.serie = series;
+    }
+
+    public getSerie(): Series{
+        return this.serie;
     }
 }
